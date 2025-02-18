@@ -1,0 +1,21 @@
+Tema 1 APD
+
+Namoianu Petre - 335CC
+
+
+Am inceput prin a creea cele 2 "cozi". Prima este o lista cu literele alfabetului pentru thread-urile Reducer,
+si a doua ce contine numele fisierelor pentru thread-urile Mapper. Apoi am pornit thread-urile cu argumentele
+specifice, id, mutex, bariera, si pointeri la lista generala si lista de litere.
+
+In functia mapper, fiecare thread alege primul fisier neprocesat si il scoate din coada. Mai apoi, se parcurge
+si se extrag cuvintele, care dupa stergerea caracterelor care nu sunt litere se pun intr-o lista partiala.
+Aceste liste partiale vor ajunge, pe rand, in lista generala.
+
+Sincornizarea este realizata cu un mutex pe care fiecare thread va face lock cand va accesa sau modifica date
+din structuri la care exista acces paralel. Am mai utilizat si o bariera pentru a ma asigura ca thread-urile
+Reducer pornesc executia numai dupa ce toate de tip Mapper si-au terminat executia.
+
+In functia reducer, fiecare thread alege prima litera neprocesata si o scoate din coada. Apoi cauta in lista
+generala toate cuvintele care incep cu acea litera si le introduce intr-un vector de perechi. Dupa sortarea
+lui folosind criteriile cerute, se creaza un fisier/litera unde se scrie vectorul ordonat descrescator dupa
+numarul de aparitii si alfabetic in caz de numar egal de indexi.
